@@ -1,4 +1,4 @@
-package com.isilsubasi.gunlukburclarapp;
+package com.isilsubasi.gunlukburclarapp.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
