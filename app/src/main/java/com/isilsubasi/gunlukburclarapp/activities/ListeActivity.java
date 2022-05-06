@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.isilsubasi.gunlukburclarapp.R;
 import com.isilsubasi.gunlukburclarapp.adapter.BurcAdapter;
 import com.isilsubasi.gunlukburclarapp.model.BurcModel;
 import com.isilsubasi.gunlukburclarapp.network.Service;
+import com.isilsubasi.gunlukburclarapp.util.Constans;
+import com.isilsubasi.gunlukburclarapp.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,9 +87,30 @@ public class ListeActivity extends AppCompatActivity {
     private void initRecyclerView(List<BurcModel> burcList){
         recyclerView=findViewById(R.id.rcvBurclar);
 
-        BurcAdapter burcAdapter=new BurcAdapter(burcList,getApplicationContext());
+        BurcAdapter burcAdapter=new BurcAdapter(burcList, getApplicationContext(), new BurcAdapter.OnItemClickListener() {
+            @Override
+            public void onClik(int position) {
+
+                BurcModel tiklananBurc = burcList.get(position);
+                Toast.makeText(getApplicationContext(), "Tıklanan Adi" + tiklananBurc.getBurcAdi(), Toast.LENGTH_SHORT).show();
+                openScreen(tiklananBurc);
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(burcAdapter);
 
     }
+
+
+    private void openScreen(BurcModel tiklananBurc){
+        Intent intent=new Intent(getApplicationContext(), BurcDetayActivity.class);
+        String tiklananBurcString= ObjectUtils.burcToJsonString(tiklananBurc);
+        intent.putExtra(Constans.TIKLANAN_BURC,tiklananBurcString);
+        startActivity(intent);
+
+    }
+
+
+
+
 }

@@ -16,12 +16,19 @@ public class BurcViewHolder extends RecyclerView.ViewHolder {
     TextView txtTarih;
 
 
-    public BurcViewHolder(@NonNull View itemView) {
-        super(itemView);
+    public BurcViewHolder(@NonNull View cardView, BurcAdapter.OnItemClickListener listener) {
+        super(cardView);
 
-        imgBurcLogo=itemView.findViewById(R.id.imgBurcLogo);
-        txtBurcAdi=itemView.findViewById(R.id.txtBurcAdi);
-        txtTarih=itemView.findViewById(R.id.txtTarih);
+        imgBurcLogo=cardView.findViewById(R.id.imgBurcLogo);
+        txtBurcAdi=cardView.findViewById(R.id.txtBurcAdi);
+        txtTarih=cardView.findViewById(R.id.txtTarih);
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClik(getAdapterPosition());
+            }
+        });
 
 
 

@@ -19,10 +19,20 @@ public class BurcAdapter extends RecyclerView.Adapter<BurcViewHolder> {
 
     List<BurcModel> burclar =new ArrayList<>();
     Context context;
+    OnItemClickListener listener;
 
-    public BurcAdapter(List<BurcModel> burclar, Context context) {
+    public interface OnItemClickListener {
+        void onClik(int position);
+    }
+
+
+
+
+
+    public BurcAdapter(List<BurcModel> burclar, Context context, OnItemClickListener listener) {
         this.burclar = burclar;
         this.context = context;
+        this.listener=listener;
     }
 
     @NonNull
@@ -30,7 +40,7 @@ public class BurcAdapter extends RecyclerView.Adapter<BurcViewHolder> {
     public BurcViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View itemView= LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_burc,parent,false);
-        return new BurcViewHolder(itemView);
+        return new BurcViewHolder(itemView,listener);
     }
 
     @Override
